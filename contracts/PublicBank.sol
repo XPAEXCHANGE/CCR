@@ -52,7 +52,7 @@ contract SafeMath {
         internal
         view
     returns(uint) {
-        bytes32 hash = keccak256(block.number, msg.sender, salt);
+        bytes32 hash = keccak256(abi.encodePacked(block.number, msg.sender, salt));
         return uint(hash) % N;
     }
 }
