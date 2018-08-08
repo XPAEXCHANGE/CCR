@@ -265,13 +265,13 @@ contract StandardToken is SafeMath, Authorization {
 
 contract PrivateBank is Authorization {
 
-    mapping (address => mapping( address => mapping (address => uint256))) public allowed;
-    mapping (address => mapping( address => uint)) public balances; //[user][token] = amount
     enum tokenType {asset, consumption}
-    address ethaddress = address(1); 
     address[] public tokenlist;
     mapping(address => bool) public assetbook;
     mapping(address => bool) public consumptionbook;
+
+    event IssueAssetToConsumption(address _from, address _to, address _user);
+    event TransferConsumptionToAsset(address _from, address _to, address _user, bytes32 _detail);
 
     function createToken (
         string _symbol,
@@ -336,6 +336,7 @@ contract PrivateBank is Authorization {
         assert(assetbook[_to]);
         uint256 _amount = StandardToken(_from).allowance(msg.sender, this);
         if(StandardToken(_from).transferFrom(msg.sender, this, _amount)){
+            IssueAssetToConsumption(_from, _to, _user);
             StandardToken(_to).issue(_user, _amount);
         }
     }
@@ -343,15 +344,18 @@ contract PrivateBank is Authorization {
     function transferConsumptionToAsset(
         address _from,
         address _to,
-        address _user
+        address _user,
+        bytes32 _detail
     )
         public
     {
+        
         assert(assetbook[_from]);
         assert(consumptionbook[_to]);
         uint256 _amount = StandardToken(_from).allowance(msg.sender, this);
         assert(StandardToken(_to).balanceOf(this) >= _amount);
         if(StandardToken(_from).transferFrom(msg.sender, this, _amount)){
+            TransferConsumptionToAsset(_from, _to, _user, _detail);
             StandardToken(_to).transfer(_user, _amount);
         }
     }

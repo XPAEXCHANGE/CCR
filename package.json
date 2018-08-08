@@ -1,0 +1,37 @@
+{
+  "name": "ccr",
+  "version": "1.0.0",
+  "description": "cross chain reactive",
+  "main": "bin/start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bin/start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XPAEXCHANGE/CCR.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/XPAEXCHANGE/CCR/issues"
+  },
+  "homepage": "https://github.com/XPAEXCHANGE/CCR#readme",
+  "dependencies": {
+    "bn": "^1.0.1",
+    "dvalue": "^1.0.20",
+    "ecrequest": "^1.1.3",
+    "ethereumjs-tx": "^1.3.3",
+    "firebase": "^4.13.1",
+    "fs": "0.0.1-security",
+    "i18n": "^0.8.3",
+    "js-sha3": "^0.8.0",
+    "keythereum": "^1.0.2",
+    "log4js": "^3.0.4",
+    "mongodb": "^2.2.33",
+    "os": "^0.1.1",
+    "path": "^0.12.7",
+    "pem": "^1.12.5",
+    "url": "^0.11.0"
+  }
+}
